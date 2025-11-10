@@ -64,8 +64,8 @@
       background: #e2b71f;
     }
 
-    .logout-btn {
-      background: #ff5252;
+    .logout-btn, .login-btn {
+      background: #4285F4;
       color: white;
       border: none;
       padding: 8px 15px;
@@ -74,25 +74,11 @@
       margin-top: 10px;
       font-size: 14px;
       transition: 0.3s;
+      width: 100%;
     }
 
     .logout-btn:hover {
       background: #e04848;
-    }
-
-    .login-section {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .login-btn {
-      background: #4285F4;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 15px;
     }
 
     .login-btn:hover {
@@ -117,12 +103,6 @@
 
     .comment-item strong {
       color: #f3c623;
-      font-size: 18px;
-    }
-
-    .comment-email {
-      font-size: 14px;
-      color: #666;
     }
 
     .rating {
@@ -130,23 +110,22 @@
       font-size: 18px;
     }
 
-    .btn-all {
-      display: block;
-      margin: 15px auto 0;
+    .show-more-btn {
       background: #555;
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 8px;
       cursor: pointer;
+      display: block;
+      margin: 15px auto;
       font-weight: bold;
       transition: 0.3s;
     }
 
-    .btn-all:hover {
+    .show-more-btn:hover {
       background: #333;
     }
-
   </style>
 </head>
 <body>
@@ -163,7 +142,11 @@
       <a href="contact.html">Contact</a>
       <a href="form.html" class="active">Feedback</a>
     </nav>
-    <div id="logoutContainer"></div>
+
+    <div id="authContainer">
+      <button class="login-btn" id="loginBtn" onclick="login()">Login dengan Gmail</button>
+      <button class="logout-btn" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+    </div>
   </div>
 
   <!-- HEADER -->
@@ -174,13 +157,10 @@
 
   <!-- FORM -->
   <section class="form-container">
-    <div class="login-section" id="loginSection">
-      <p>Silakan login dengan Gmail Anda untuk memberikan komentar.</p>
-      <button class="login-btn" onclick="login()">Login dengan Gmail</button>
-    </div>
-
     <form id="commentForm" style="display:none;">
       <h2>Bagikan Pendapatmu 🍩</h2>
+      <p id="userInfo" style="text-align:center; color:#666; margin-bottom:15px;"></p>
+
       <label for="name">Nama</label>
       <input type="text" id="name" placeholder="Masukkan nama Anda" required>
 
@@ -203,7 +183,7 @@
     <div class="comments-section" id="commentsSection">
       <h3>Komentar Pengunjung 🍩</h3>
       <div id="commentsList"></div>
-      <button id="showAllBtn" class="btn-all" style="display:none;" onclick="showAllComments()">Lihat Semua Komentar</button>
+      <button id="showMoreBtn" class="show-more-btn" style="display:none;">Tampilkan Semua Komentar</button>
     </div>
   </section>
 
@@ -223,10 +203,8 @@
       const email = prompt("Masukkan Gmail Anda:");
       if (email && email.includes("@gmail.com")) {
         localStorage.setItem("userEmail", email);
-        document.getElementById("loginSection").style.display = "none";
-        document.getElementById("commentForm").style.display = "block";
-        document.getElementById("logoutContainer").innerHTML =
-          '<button class="logout-btn" onclick="logout()">Logout</button>';
+        updateAuthUI();
+        alert("Login berhasil! Sekarang Anda bisa berkomentar 🍩");
       } else {
         alert("Harap gunakan alamat Gmail yang valid.");
       }
@@ -234,81 +212,81 @@
 
     function logout() {
       localStorage.removeItem("userEmail");
-      location.reload();
+      updateAuthUI();
+      alert("Anda telah logout.");
     }
 
-    window.onload = () => {
-      if (localStorage.getItem("userEmail")) {
-        document.getElementById("loginSection").style.display = "none";
-        document.getElementById("commentForm").style.display = "block";
-        document.getElementById("logoutContainer").innerHTML =
-          '<button class="logout-btn" onclick="logout()">Logout</button>';
-      }
-      loadComments();
-    };
+    function updateAuthUI() {
+      const email = localStorage.getItem("userEmail");
+      const loginBtn = document.getElementById("loginBtn");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const form = document.getElementById("commentForm");
+      const info = document.getElementById("userInfo");
 
-    // Simpan komentar
+      if (email) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "block";
+        form.style.display = "block";
+        info.textContent = "Login sebagai: " + email;
+      } else {
+        loginBtn.style.display = "block";
+        logoutBtn.style.display = "none";
+        form.style.display = "none";
+        info.textContent = "";
+      }
+    }
+
+    // Simpan komentar ke localStorage
     document.getElementById("commentForm").addEventListener("submit", e => {
       e.preventDefault();
       const name = document.getElementById("name").value.trim();
       const rating = document.getElementById("rating").value.trim();
       const comment = document.getElementById("comment").value.trim();
-      const email = localStorage.getItem("userEmail") || "Tidak diketahui";
+      const email = localStorage.getItem("userEmail");
 
-      if (name && rating && comment) {
+      if (name && rating && comment && email) {
         const comments = JSON.parse(localStorage.getItem("comments") || "[]");
-        const date = new Date().toLocaleString("id-ID");
-        comments.push({ name, email, rating, comment, date });
+        comments.push({ name, rating, comment, email });
         localStorage.setItem("comments", JSON.stringify(comments));
+        displayComments();
         e.target.reset();
-        loadComments();
         alert("Komentar berhasil dikirim!");
       }
     });
 
     // Tampilkan komentar
-    function loadComments() {
-      const list = document.getElementById("commentsList");
+    function displayComments(showAll = false) {
       const comments = JSON.parse(localStorage.getItem("comments") || "[]");
+      const list = document.getElementById("commentsList");
+      const showMoreBtn = document.getElementById("showMoreBtn");
       list.innerHTML = "";
 
-      if (comments.length === 0) {
-        list.innerHTML = "<p>Belum ada komentar.</p>";
-        document.getElementById("showAllBtn").style.display = "none";
-        return;
-      }
+      const displayLimit = showAll ? comments.length : 3;
+      comments.slice(-displayLimit).reverse().forEach(c => {
+        const div = document.createElement("div");
+        div.classList.add("comment-item");
+        div.innerHTML = `
+          <strong>${c.name}</strong> <br>
+          <small>${c.email}</small>
+          <div class="rating">⭐ ${c.rating}</div>
+          <p>${c.comment}</p>
+        `;
+        list.appendChild(div);
+      });
 
-      const latestComments = comments.slice(-3).reverse(); // tampilkan 3 terakhir
-      latestComments.forEach(c => displayComment(c));
-
-      if (comments.length > 3) {
-        document.getElementById("showAllBtn").style.display = "block";
-      } else {
-        document.getElementById("showAllBtn").style.display = "none";
-      }
+      showMoreBtn.style.display = comments.length > 3 && !showAll ? "block" : "none";
     }
 
-    function displayComment(c) {
-      const list = document.getElementById("commentsList");
-      const div = document.createElement("div");
-      div.classList.add("comment-item");
-      div.innerHTML = `
-        <strong>${c.name}</strong> 
-        <div class="comment-email">${c.email}</div>
-        <div class="rating">⭐ ${c.rating}</div>
-        <p>${c.comment}</p>
-        <small><i>Dikirim pada ${c.date}</i></small>
-      `;
-      list.appendChild(div);
-    }
+    document.getElementById("showMoreBtn").addEventListener("click", () => {
+      displayComments(true);
+      document.getElementById("showMoreBtn").style.display = "none";
+    });
 
-    function showAllComments() {
-      const list = document.getElementById("commentsList");
-      const comments = JSON.parse(localStorage.getItem("comments") || "[]");
-      list.innerHTML = "";
-      comments.slice().reverse().forEach(c => displayComment(c));
-      document.getElementById("showAllBtn").style.display = "none";
-    }
+    // Saat halaman dimuat
+    window.onload = () => {
+      updateAuthUI();
+      displayComments();
+    };
   </script>
 </body>
 </html>
