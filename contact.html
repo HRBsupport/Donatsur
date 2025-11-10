@@ -3,32 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hubungi Kami - DonatSur</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Kontak - DonatSur</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-white text-gray-800">
-  <header class="bg-yellow-50 shadow-lg fixed w-full z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <h1 class="text-3xl font-extrabold text-yellow-600">🍩 DonatSur</h1>
-      <nav class="space-x-6">
-        <a href="index.html" class="hover:text-yellow-500">Home</a>
-        <a href="about.html" class="hover:text-yellow-500">About</a>
-        <a href="menu.html" class="hover:text-yellow-500">Menu</a>
-        <a href="gallery.html" class="hover:text-yellow-500">Gallery</a>
-        <a href="contact.html" class="hover:text-yellow-500">Contact</a>
-      </nav>
-    </div>
+<body>
+  <div id="sidebar" class="sidebar">
+    <button class="close-btn" onclick="toggleSidebar()">×</button>
+    <h2>🍩 DonatSur</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="menu.html">Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </div>
+
+  <header>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h1>Hubungi Kami</h1>
   </header>
 
-  <section class="pt-24 max-w-4xl mx-auto p-6">
-    <h2 class="text-4xl font-bold text-yellow-600 text-center mb-8">Hubungi Kami</h2>
-    <p class="text-center text-gray-600 mb-6">Ada pertanyaan, saran, atau ingin pesan donat custom? Kirim pesan ke kami!</p>
-    <form class="bg-yellow-50 rounded-2xl p-6 shadow-lg space-y-4 max-w-md mx-auto">
-      <input type="text" placeholder="Nama Anda" required class="w-full border p-2 rounded" />
-      <input type="email" placeholder="Email Anda" required class="w-full border p-2 rounded" />
-      <textarea placeholder="Pesan Anda..." rows="4" required class="w-full border p-2 rounded"></textarea>
-      <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">Kirim Pesan</button>
+  <main class="section">
+    <form id="contactForm" class="contact-form">
+      <input type="text" id="nama" placeholder="Nama Anda" required />
+      <input type="email" id="email" placeholder="Email Anda" required />
+      <textarea id="pesan" rows="5" placeholder="Pesan Anda..." required></textarea>
+      <button type="submit" class="btn">Kirim Pesan</button>
     </form>
-  </section>
+  </main>
+
+  <footer>
+    <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // Mailto otomatis saat submit
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const nama = document.getElementById("nama").value;
+      const email = document.getElementById("email").value;
+      const pesan = document.getElementById("pesan").value;
+
+      const subject = encodeURIComponent("Pesan dari " + nama);
+      const body = encodeURIComponent(
+        `Nama: ${nama}\nEmail: ${email}\n\nPesan:\n${pesan}`
+      );
+
+      // Ganti dengan email tujuan kamu
+      const tujuan = "donatsur@gmail.com";
+      const mailtoLink = `mailto:${tujuan}?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
+    });
+  </script>
 </body>
 </html>
