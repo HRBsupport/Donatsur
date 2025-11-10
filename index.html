@@ -3,104 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DonatSur - Donat Premium Indonesia</title>
+  <title>DonatSur | Kelezatan Tiada Tanding</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Tambahan CSS tanpa menyentuh style.css -->
-  <style>
-    /* ===== VIDEO SLIDER SECTION ===== */
-    .video-section {
-      position: relative;
-      width: 100%;
-      height: 80vh;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      margin-top: 30px;
-    }
-
-    .video-slide {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-
-    .video-slide.active {
-      opacity: 1;
-    }
-
-    .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.1));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .video-overlay h2 {
-      font-size: 2.5em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .video-overlay p {
-      font-size: 1.1em;
-      max-width: 600px;
-    }
-
-    @media (max-width: 768px) {
-      .video-section {
-        height: 50vh;
-      }
-      .video-overlay h2 {
-        font-size: 1.8em;
-      }
-      .video-overlay p {
-        font-size: 1em;
-      }
-    }
-  </style>
 </head>
-
 <body>
-  <!-- SIDEBAR -->
-  <div id="sidebar" class="sidebar">
-    <button class="close-btn" onclick="toggleSidebar()">×</button>
-    <h2>🍩 DonatSur</h2>
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
+  <header>
+    <div class="logo">🍩 DonatSur</div>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">Tentang</a>
       <a href="menu.html">Menu</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
+      <a href="gallery.html">Galeri</a>
+      <a href="contact.html">Kontak</a>
     </nav>
-  </div>
-
-  <!-- HEADER -->
-  <header class="hero-header">
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-    <div class="hero-content">
-      <h1>Selamat Datang di <span>DonatSur</span></h1>
-      <p>Kelezatan donat premium, lembut, dan manis setiap hari 🍩</p>
-      <a href="menu.html" class="btn">Pesan Sekarang</a>
-    </div>
-    <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1606813902915-6d17d1a4d73f" alt="Donat Premium">
-    </div>
   </header>
 
-  <!-- VIDEO SLIDE SECTION -->
+  <!-- === VIDEO SLIDER SECTION === -->
   <section class="video-section">
     <video class="video-slide active" src="https://videos.pexels.com/video-files/3733386/3733386-hd_1920_1080_24fps.mp4" autoplay muted loop></video>
     <video class="video-slide" src="https://videos.pexels.com/video-files/857195/857195-hd_1920_1080_25fps.mp4" autoplay muted loop></video>
@@ -112,79 +30,24 @@
     </div>
   </section>
 
-  <!-- INTRO SECTION -->
-  <section class="section intro">
-    <h2>Kenapa Memilih DonatSur?</h2>
-    <div class="intro-cards">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1615484477483-82b3b29d4ab9" alt="Bahan Premium">
-        <h3>Bahan Premium</h3>
-        <p>Kami hanya menggunakan bahan alami berkualitas tanpa pengawet untuk rasa terbaik.</p>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1590080875831-1a7c56b0d7a6" alt="Dibuat Segar">
-        <h3>Dibuat Segar Setiap Hari</h3>
-        <p>Setiap donat dibuat dengan cinta di dapur kami setiap pagi, untuk Anda.</p>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1612197527762-56f6b26df35f" alt="Cita Rasa Unik">
-        <h3>Cita Rasa Unik</h3>
-        <p>Kombinasi rasa klasik dan modern yang menggoda lidah setiap pelanggan.</p>
-      </div>
-    </div>
+  <!-- === INTRO SECTION === -->
+  <section class="intro">
+    <h2>Store DonatSur</h2>
+    <p>Temukan berbagai varian donat lembut dan lezat yang siap menggugah selera Anda. Kami hanya menggunakan bahan premium untuk menciptakan rasa sempurna di setiap gigitan.</p>
   </section>
 
-  <!-- BEST SELLERS -->
-  <section class="section best-seller">
-    <h2>Donat Favorit Pelanggan</h2>
-    <div class="favorites">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1589441631566-f33bdf1b60a9" alt="Donat Coklat">
-        <h3>Donat Coklat</h3>
-        <p>Lembut dan legit dengan topping coklat Belgia pilihan.</p>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Donat Stroberi">
-        <h3>Donat Stroberi</h3>
-        <p>Manis alami dengan taburan stroberi segar di atasnya.</p>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1600093463592-36c66b9f62e8" alt="Donat Keju">
-        <h3>Donat Keju</h3>
-        <p>Donat gurih lembut dengan parutan keju melimpah di atasnya.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- QUOTE -->
-  <section class="section quote">
-    <blockquote>
-      “Setiap gigitan donat kami adalah kebahagiaan kecil yang bisa kamu rasakan.”  
-      <br><strong>— Tim DonatSur</strong>
-    </blockquote>
-  </section>
-
-  <!-- FOOTER -->
+  <!-- === FOOTER === -->
   <footer>
-    <p>© 2025 DonatSur | Copy Right By 
-      <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a>
-    </p>
+    <p>© 2025 <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a> | DonatSur</p>
   </footer>
 
-  <!-- Script untuk sidebar & video slider -->
   <script>
-    function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("active");
-    }
-
-    // Video slide otomatis berganti setiap 8 detik
-    let currentSlide = 0;
-    const slides = document.querySelectorAll(".video-slide");
-
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.video-slide');
     setInterval(() => {
-      slides[currentSlide].classList.remove("active");
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add("active");
+      slides[slideIndex].classList.remove('active');
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
     }, 8000);
   </script>
 </body>
