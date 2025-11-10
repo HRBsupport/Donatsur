@@ -1,31 +1,71 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DonatSur - Beranda</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DonatSur - Home</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>🍩 DonatSur</h1>
+  <div id="sidebar" class="sidebar">
+    <button class="close-btn" onclick="toggleSidebar()">×</button>
+    <h2>🍩 DonatSur</h2>
     <nav>
-      <a href="index.html">Home</a>
+      <a href="index.html" class="active">Home</a>
       <a href="about.html">About</a>
       <a href="menu.html">Menu</a>
       <a href="gallery.html">Gallery</a>
       <a href="contact.html">Contact</a>
     </nav>
+  </div>
+
+  <header>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h1>DonatSur</h1>
   </header>
 
   <section class="hero">
-    <h2>Rasakan Kelezatan Donat Premium Kami</h2>
-    <p>DonatSur menyajikan berbagai donat lezat dengan cita rasa megah dan tampilan elegan.</p>
-    <a href="menu.html" class="btn">Lihat Menu</a>
+    <div class="hero-content">
+      <h2>Rasakan Kemewahan Setiap Gigitan 🍩</h2>
+      <p>Donat lembut, rasa premium, dan tampilan elegan — hanya di DonatSur!</p>
+      <a href="menu.html" class="btn">Lihat Menu</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Tentang Kami</h2>
+    <p>DonatSur adalah toko donat premium yang menghadirkan kelembutan dan rasa autentik dari bahan terbaik.</p>
+  </section>
+
+  <section class="section">
+    <h2>Donat Favorit Pelanggan</h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat" />
+        <h3>Donat Coklat</h3>
+        <p>Lembut dengan topping coklat Belgia mewah.</p>
+      </div>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi" />
+        <h3>Donat Stroberi</h3>
+        <p>Rasa manis segar dengan aroma buah alami.</p>
+      </div>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1590080875837-45c8e3c65d5d" alt="Donat Keju" />
+        <h3>Donat Keju</h3>
+        <p>Lelehan keju gurih yang bikin nagih.</p>
+      </div>
+    </div>
   </section>
 
   <footer>
-    <p>© 2025 DonatSur. Semua hak dilindungi.</p>
+    <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
   </footer>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
