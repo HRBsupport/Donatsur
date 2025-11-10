@@ -117,12 +117,36 @@
 
     .comment-item strong {
       color: #f3c623;
+      font-size: 18px;
+    }
+
+    .comment-email {
+      font-size: 14px;
+      color: #666;
     }
 
     .rating {
       color: #ffb400;
       font-size: 18px;
     }
+
+    .btn-all {
+      display: block;
+      margin: 15px auto 0;
+      background: #555;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-all:hover {
+      background: #333;
+    }
+
   </style>
 </head>
 <body>
@@ -179,6 +203,7 @@
     <div class="comments-section" id="commentsSection">
       <h3>Komentar Pengunjung 🍩</h3>
       <div id="commentsList"></div>
+      <button id="showAllBtn" class="btn-all" style="display:none;" onclick="showAllComments()">Lihat Semua Komentar</button>
     </div>
   </section>
 
@@ -212,7 +237,6 @@
       location.reload();
     }
 
-    // Saat halaman dibuka
     window.onload = () => {
       if (localStorage.getItem("userEmail")) {
         document.getElementById("loginSection").style.display = "none";
@@ -223,39 +247,67 @@
       loadComments();
     };
 
-    // Simpan komentar ke localStorage
+    // Simpan komentar
     document.getElementById("commentForm").addEventListener("submit", e => {
       e.preventDefault();
       const name = document.getElementById("name").value.trim();
       const rating = document.getElementById("rating").value.trim();
       const comment = document.getElementById("comment").value.trim();
+      const email = localStorage.getItem("userEmail") || "Tidak diketahui";
 
       if (name && rating && comment) {
         const comments = JSON.parse(localStorage.getItem("comments") || "[]");
-        comments.push({ name, rating, comment });
+        const date = new Date().toLocaleString("id-ID");
+        comments.push({ name, email, rating, comment, date });
         localStorage.setItem("comments", JSON.stringify(comments));
-        displayComment(name, rating, comment);
         e.target.reset();
+        loadComments();
         alert("Komentar berhasil dikirim!");
       }
     });
 
-    // Tampilkan komentar di halaman
+    // Tampilkan komentar
     function loadComments() {
+      const list = document.getElementById("commentsList");
       const comments = JSON.parse(localStorage.getItem("comments") || "[]");
-      comments.forEach(c => displayComment(c.name, c.rating, c.comment));
+      list.innerHTML = "";
+
+      if (comments.length === 0) {
+        list.innerHTML = "<p>Belum ada komentar.</p>";
+        document.getElementById("showAllBtn").style.display = "none";
+        return;
+      }
+
+      const latestComments = comments.slice(-3).reverse(); // tampilkan 3 terakhir
+      latestComments.forEach(c => displayComment(c));
+
+      if (comments.length > 3) {
+        document.getElementById("showAllBtn").style.display = "block";
+      } else {
+        document.getElementById("showAllBtn").style.display = "none";
+      }
     }
 
-    function displayComment(name, rating, comment) {
+    function displayComment(c) {
       const list = document.getElementById("commentsList");
       const div = document.createElement("div");
       div.classList.add("comment-item");
       div.innerHTML = `
-        <strong>${name}</strong> 
-        <div class="rating">⭐ ${rating}</div>
-        <p>${comment}</p>
+        <strong>${c.name}</strong> 
+        <div class="comment-email">${c.email}</div>
+        <div class="rating">⭐ ${c.rating}</div>
+        <p>${c.comment}</p>
+        <small><i>Dikirim pada ${c.date}</i></small>
       `;
-      list.prepend(div);
+      list.appendChild(div);
+    }
+
+    function showAllComments() {
+      const list = document.getElementById("commentsList");
+      const comments = JSON.parse(localStorage.getItem("comments") || "[]");
+      list.innerHTML = "";
+      comments.slice().reverse().forEach(c => displayComment(c));
+      document.getElementById("showAllBtn").style.display = "none";
     }
   </script>
 </body>
