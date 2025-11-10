@@ -203,7 +203,7 @@ header h1 {
   transform: scale(1.08);
 }
 
-/* === FORM (CONTACT & MENU) === */
+/* === FORM UMUM === */
 form {
   max-width: 600px;
   margin: 0 auto;
@@ -213,7 +213,9 @@ form {
   padding: 20px;
 }
 
-form input, form textarea, form button {
+form input,
+form textarea,
+form button {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -231,6 +233,55 @@ form button {
 form button:hover {
   background: #ffcc70;
   color: #333;
+}
+
+/* === MENU PAGE === */
+.menu-item {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.menu-item label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  color: #ff7e5f;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.quantity-control button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: #ff7e5f;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.quantity-control button:hover {
+  background: #ffcc70;
+  color: #333;
+}
+
+.quantity-control input {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
 }
 
 /* === ANIMASI FADE-IN === */
