@@ -3,26 +3,57 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  background: #fff8ec;
+  background: #fff8f0;
   color: #333;
-  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === HEADER === */
+header {
+  background: #ff7e5f;
+  color: #fff;
+  padding: 15px 25px;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  font-size: 1.8rem;
+}
+
+.menu-btn {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.menu-btn:hover {
+  transform: scale(1.2);
 }
 
 /* === SIDEBAR === */
 .sidebar {
   position: fixed;
-  left: -260px;
   top: 0;
+  left: -260px;
   width: 250px;
   height: 100%;
-  background: #f7b733;
-  color: #fff;
-  padding: 25px 15px;
-  transition: 0.4s;
+  background: linear-gradient(180deg, #ff7e5f, #feb47b);
+  color: white;
+  padding: 20px;
+  transition: all 0.4s ease;
   z-index: 1000;
 }
 
@@ -33,215 +64,220 @@ body {
 .sidebar h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #fff;
 }
 
 .sidebar nav a {
   display: block;
-  color: #fff;
+  color: white;
   text-decoration: none;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 6px;
-  transition: 0.3s;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  transition: background 0.3s;
 }
 
 .sidebar nav a:hover,
 .sidebar nav a.active {
-  background: #fff;
-  color: #f7b733;
+  background: rgba(255,255,255,0.2);
 }
 
 .close-btn {
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  color: #fff;
-  float: right;
-  cursor: pointer;
-}
-
-/* === HEADER === */
-header {
-  background: #f7b733;
-  color: #fff;
-  padding: 18px;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 900;
-}
-
-.menu-btn {
   position: absolute;
-  left: 15px;
-  font-size: 24px;
   top: 15px;
+  right: 15px;
   background: transparent;
   border: none;
-  color: #fff;
+  color: white;
+  font-size: 24px;
   cursor: pointer;
 }
 
 /* === HERO SECTION === */
 .hero {
-  background: url('https://images.unsplash.com/photo-1607082349566-187342b92847?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
   text-align: center;
-  padding: 0 20px;
-}
-
-.hero-content {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 30px;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #ffcc70, #ff7e5f);
+  color: #fff;
   border-radius: 20px;
+  margin: 20px;
 }
 
 .hero h2 {
-  font-size: 2em;
+  font-size: 2.5rem;
   margin-bottom: 10px;
 }
 
-.btn {
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.hero .btn {
   display: inline-block;
-  background: #f7b733;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
+  background: #fff;
+  color: #ff7e5f;
+  padding: 12px 25px;
+  border-radius: 50px;
   text-decoration: none;
-  transition: 0.3s;
+  font-weight: bold;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.btn:hover {
-  background: #f1a10a;
+.hero .btn:hover {
+  background: #ff7e5f;
+  color: #fff;
 }
 
-/* === SECTION === */
+/* === SECTION UMUM === */
 .section {
-  padding: 60px 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
 .section h2 {
+  font-size: 2rem;
   margin-bottom: 20px;
-  color: #f7b733;
+  color: #ff7e5f;
 }
 
-/* === MENU GRID === */
-.menu-grid {
+/* === FAVORITE DONUTS === */
+.favorites {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card h3 {
+  color: #ff7e5f;
+  margin: 10px 0;
+}
+
+.card p {
+  padding: 0 10px 20px;
+  color: #555;
+}
+
+/* === GALERI === */
+.gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
 }
 
-.menu-item {
-  background: #fff;
+.gallery-item {
+  overflow: hidden;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: 0.3s;
+  transition: transform 0.3s ease;
 }
 
-.menu-item:hover {
-  transform: translateY(-5px);
-}
-
-.menu-item img {
+.gallery-item img {
   width: 100%;
-  height: 180px;
+  height: 200px;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-.menu-item h3 {
-  margin: 10px 0;
+.gallery-item:hover img {
+  transform: scale(1.08);
 }
 
-.controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.controls button {
-  background: #f7b733;
-  color: white;
-  border: none;
-  font-size: 20px;
-  padding: 5px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.total-box {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 1.2em;
-  color: #333;
-}
-
-/* === FORM PEMBAYARAN DAN KONTAK === */
+/* === FORM (CONTACT & MENU) === */
 form {
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
 }
 
-form input, form select, form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
+form input, form textarea, form button {
+  padding: 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 form button {
-  width: 100%;
+  background: #ff7e5f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #ffcc70;
+  color: #333;
+}
+
+/* === ANIMASI FADE-IN === */
+.fade-in {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* === FOOTER === */
 footer {
-  background: #f7b733;
-  color: #fff;
+  background: #ff7e5f;
+  color: white;
   text-align: center;
   padding: 15px 10px;
-  font-size: 0.95em;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  margin-top: auto;
 }
 
 footer a {
   color: #fff;
   text-decoration: underline;
+  transition: color 0.3s ease;
 }
 
 footer a:hover {
-  color: #333;
+  color: #ffcc70;
 }
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   header h1 {
-    font-size: 1.5em;
+    font-size: 1.4rem;
   }
+
   .hero h2 {
-    font-size: 1.5em;
+    font-size: 2rem;
   }
-  .hero {
-    height: 60vh;
+
+  .hero p {
+    font-size: 1rem;
   }
+
   .sidebar {
     width: 220px;
   }
