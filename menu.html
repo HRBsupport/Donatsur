@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- SIDEBAR -->
   <div id="sidebar" class="sidebar">
     <button class="close-btn" onclick="toggleSidebar()">×</button>
     <h2>🍩 DonatSur</h2>
@@ -19,109 +20,116 @@
     </nav>
   </div>
 
+  <!-- HEADER -->
   <header>
     <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     <h1>Menu DonatSur</h1>
   </header>
 
+  <!-- MAIN SECTION -->
   <main class="section">
-    <h2>Menu Donat Kami</h2>
-    <div class="menu-grid">
+    <h2>Pesan Donat Favoritmu</h2>
+    <p>Pilih varian donat dan jumlah pesananmu, lalu kirim lewat WhatsApp untuk konfirmasi.</p>
+
+    <form id="orderForm" onsubmit="sendWhatsApp(event)">
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat" />
-        <h3>Donat Coklat</h3>
-        <p>Rp 10.000</p>
-        <div class="controls">
-          <button onclick="ubahJumlah(0, -1)">−</button>
-          <span id="jumlah0">0</span>
-          <button onclick="ubahJumlah(0, 1)">+</button>
+        <label>Donat Coklat</label>
+        <div class="quantity-control">
+          <button type="button" onclick="changeQty('coklat', -1)">-</button>
+          <input type="number" id="coklatQty" value="0" min="0" readonly />
+          <button type="button" onclick="changeQty('coklat', 1)">+</button>
         </div>
+        <p>Harga: Rp <span id="coklatPrice">0</span></p>
       </div>
 
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi" />
-        <h3>Donat Stroberi</h3>
-        <p>Rp 12.000</p>
-        <div class="controls">
-          <button onclick="ubahJumlah(1, -1)">−</button>
-          <span id="jumlah1">0</span>
-          <button onclick="ubahJumlah(1, 1)">+</button>
+        <label>Donat Stroberi</label>
+        <div class="quantity-control">
+          <button type="button" onclick="changeQty('stroberi', -1)">-</button>
+          <input type="number" id="stroberiQty" value="0" min="0" readonly />
+          <button type="button" onclick="changeQty('stroberi', 1)">+</button>
         </div>
+        <p>Harga: Rp <span id="stroberiPrice">0</span></p>
       </div>
 
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1590080875837-45c8e3c65d5d" alt="Donat Keju" />
-        <h3>Donat Keju</h3>
-        <p>Rp 15.000</p>
-        <div class="controls">
-          <button onclick="ubahJumlah(2, -1)">−</button>
-          <span id="jumlah2">0</span>
-          <button onclick="ubahJumlah(2, 1)">+</button>
+        <label>Donat Keju</label>
+        <div class="quantity-control">
+          <button type="button" onclick="changeQty('keju', -1)">-</button>
+          <input type="number" id="kejuQty" value="0" min="0" readonly />
+          <button type="button" onclick="changeQty('keju', 1)">+</button>
         </div>
+        <p>Harga: Rp <span id="kejuPrice">0</span></p>
       </div>
-    </div>
 
-    <div class="total-box">
-      <h3>Total: Rp <span id="totalHarga">0</span></h3>
-    </div>
+      <h3>Total Harga: Rp <span id="totalPrice">0</span></h3>
 
-    <div class="payment-section">
-      <h2>Form Pemesanan</h2>
-      <form id="formPembayaran">
-        <div class="form-group">
-          <label for="nama">Nama Pemesan:</label>
-          <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
-        </div>
-        <div class="form-group">
-          <label for="metode">Metode Pembayaran:</label>
-          <select id="metode" required>
-            <option value="">Pilih Metode</option>
-            <option value="Transfer Bank">Transfer Bank</option>
-            <option value="Dana">Dana</option>
-            <option value="OVO">OVO</option>
-            <option value="Gopay">Gopay</option>
-            <option value="COD">COD</option>
-          </select>
-        </div>
-        <button type="submit" class="btn">Kirim via WhatsApp</button>
-      </form>
-    </div>
+      <label for="name">Nama Lengkap</label>
+      <input type="text" id="name" placeholder="Nama kamu" required />
+
+      <label for="address">Alamat Lengkap</label>
+      <textarea id="address" placeholder="Tulis alamat lengkap untuk pengiriman" required></textarea>
+
+      <label for="note">Catatan Tambahan</label>
+      <textarea id="note" placeholder="(Opsional) contoh: tanpa topping, kirim siang"></textarea>
+
+      <button type="submit">Kirim Pesanan via WhatsApp</button>
+    </form>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
   </footer>
 
+  <!-- SCRIPT -->
   <script>
+    const prices = {
+      coklat: 8000,
+      stroberi: 9000,
+      keju: 8500
+    };
+
+    function changeQty(item, amount) {
+      const qtyInput = document.getElementById(item + "Qty");
+      let qty = parseInt(qtyInput.value) + amount;
+      if (qty < 0) qty = 0;
+      qtyInput.value = qty;
+      updatePrices();
+    }
+
+    function updatePrices() {
+      let total = 0;
+      for (let key in prices) {
+        const qty = parseInt(document.getElementById(key + "Qty").value);
+        const itemTotal = qty * prices[key];
+        document.getElementById(key + "Price").innerText = itemTotal.toLocaleString();
+        total += itemTotal;
+      }
+      document.getElementById("totalPrice").innerText = total.toLocaleString();
+    }
+
+    function sendWhatsApp(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const note = document.getElementById("note").value;
+
+      const coklat = document.getElementById("coklatQty").value;
+      const stroberi = document.getElementById("stroberiQty").value;
+      const keju = document.getElementById("kejuQty").value;
+      const total = document.getElementById("totalPrice").innerText;
+
+      const message = `Halo DonatSur! Saya ingin memesan:\n\n🍩 Donat Coklat: ${coklat}\n🍓 Donat Stroberi: ${stroberi}\n🧀 Donat Keju: ${keju}\n\n💰 Total: Rp ${total}\n👤 Nama: ${name}\n🏠 Alamat: ${address}\n📝 Catatan: ${note || '-'}\n\nTerima kasih!`;
+
+      const phone = "6281234567890"; // Ganti nomor WA di sini
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
+
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
     }
-
-    const harga = [10000, 12000, 15000];
-    const jumlah = [0, 0, 0];
-
-    function ubahJumlah(index, delta) {
-      jumlah[index] = Math.max(0, jumlah[index] + delta);
-      document.getElementById("jumlah" + index).textContent = jumlah[index];
-      hitungTotal();
-    }
-
-    function hitungTotal() {
-      let total = 0;
-      for (let i = 0; i < harga.length; i++) total += harga[i] * jumlah[i];
-      document.getElementById("totalHarga").textContent = total.toLocaleString("id-ID");
-    }
-
-    document.getElementById("formPembayaran").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const nama = document.getElementById("nama").value;
-      const metode = document.getElementById("metode").value;
-      const total = document.getElementById("totalHarga").textContent;
-      const wa = "https://wa.me/6281234567890?text=" + encodeURIComponent(
-        `Halo DonatSur! Saya ${nama} ingin memesan donat.\n\nTotal Pesanan: Rp ${total}\nMetode Pembayaran: ${metode}`
-      );
-      window.open(wa, "_blank");
-    });
   </script>
 </body>
 </html>
