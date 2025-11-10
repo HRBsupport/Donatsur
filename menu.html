@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu - DonatSur</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* === POPUP NOTIFIKASI === */
+    .popup {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #ff7e5f;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 9999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
   <!-- SIDEBAR -->
@@ -91,6 +114,9 @@
     </p>
   </footer>
 
+  <!-- POPUP -->
+  <div id="popup" class="popup">✅ Donat ditambahkan ke pesanan!</div>
+
   <!-- SCRIPT -->
   <script>
     const harga = {
@@ -105,15 +131,21 @@
       if (val < 0) val = 0;
       input.value = val;
       updateTotal();
+      if (change > 0) showPopup(); // tampilkan notifikasi hanya saat tambah
     }
 
     function updateTotal() {
       const qtyCoklat = parseInt(document.getElementById('qty-coklat').value);
       const qtyStroberi = parseInt(document.getElementById('qty-stroberi').value);
       const qtyMatcha = parseInt(document.getElementById('qty-matcha').value);
-
       let total = qtyCoklat * harga.coklat + qtyStroberi * harga.stroberi + qtyMatcha * harga.matcha;
       document.getElementById('totalHarga').textContent = 'Rp ' + total.toLocaleString('id-ID');
+    }
+
+    function showPopup() {
+      const popup = document.getElementById("popup");
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show"), 2000);
     }
 
     function sendOrder(event) {
@@ -149,7 +181,7 @@
       if (catatan) pesan += `%0A%0ACatatan: ${catatan}`;
       pesan += `%0A%0ATerima kasih telah memesan di DonatSur ❤️`;
 
-      const noWA = "6281234567890"; // Ganti dengan nomor WA kamu
+      const noWA = "6281234567890"; // Ganti nomor WhatsApp kamu
       const url = `https://wa.me/${noWA}?text=${pesan}`;
       window.open(url, "_blank");
     }
