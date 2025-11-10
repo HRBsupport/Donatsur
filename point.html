@@ -149,7 +149,7 @@
       generatedCode = Math.floor(100000 + Math.random() * 900000);
       regData = { name, email, phone, password };
 
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      emailjs.send("service_1kqx0ch", "template_e00tsb8", {
         to_name: name,
         to_email: email,
         message: `Halo ${name}, kode verifikasi akun DonatSur kamu adalah ${generatedCode}. Berlaku 5 menit.`,
@@ -210,7 +210,7 @@
       parsed.password = newPass;
       localStorage.setItem("user_" + email, JSON.stringify(parsed));
 
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID_RESET", {
+      emailjs.send("service_1kqx0ch", "template_j7g0ivm", {
         to_name: name,
         to_email: email,
         message: `Halo ${name}, password baru Anda adalah ${newPass}. Silakan login dan ubah kembali.`,
