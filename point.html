@@ -3,229 +3,226 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nilai & Pesan - DonatSur</title>
+  <title>Login & Register - DonatSur</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("YOUR_PUBLIC_KEY"); // 🔑 Ganti dengan public key EmailJS kamu
+    })();
+  </script>
   <style>
-    .card {
+    /* Form styling */
+    .auth-container {
+      max-width: 420px;
+      margin: 80px auto;
       background: #fff;
-      border-radius: 15px;
       padding: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
-    #review-section {
-      margin-top: 30px;
+    .auth-container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
     }
 
-    .stars span {
-      font-size: 24px;
-      cursor: pointer;
-      color: #ccc;
+    input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
     }
 
-    .stars span.active {
-      color: #f3c623;
-    }
-
-    .comment {
-      border-top: 1px solid #ddd;
-      margin-top: 15px;
-      padding-top: 10px;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .user-pic {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-    }
-
-    .logout-btn, .delete-btn {
-      margin-top: 10px;
-      background: #555;
-      color: #fff;
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #f3c623;
       border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
       cursor: pointer;
       transition: 0.2s;
     }
 
-    .logout-btn:hover, .delete-btn:hover {
-      background: #333;
+    button:hover {
+      background-color: #e2b71f;
     }
 
-    .delete-btn {
-      background: #e74c3c;
-      margin-left: auto;
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #555;
+      cursor: pointer;
     }
 
-    .delete-btn:hover {
-      background: #c0392b;
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <!-- SIDEBAR -->
-  <div id="sidebar" class="sidebar">
-    <button class="close-btn" onclick="toggleSidebar()">×</button>
-    <h2>🍩 DonatSur</h2>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="menu.html">Menu</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-      <a href="point.html" class="active">Nilai & Pesan</a>
-    </nav>
+  <div class="auth-container">
+    <!-- LOGIN -->
+    <div id="loginForm">
+      <h2>Login DonatSur</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="login()">Masuk</button>
+      <div class="link" onclick="showRegister()">Belum punya akun? Daftar</div>
+      <div class="link" onclick="showForgot()">Lupa Password?</div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="registerForm" class="hidden">
+      <h2>Daftar Akun Baru</h2>
+      <input type="text" id="regName" placeholder="Nama Lengkap" required>
+      <input type="email" id="regEmail" placeholder="Email" required>
+      <input type="password" id="regPassword" placeholder="Password" required>
+      <input type="number" id="regPhone" placeholder="No HP" required>
+      <button onclick="register()">Daftar</button>
+      <div class="link" onclick="showLogin()">Sudah punya akun? Login</div>
+    </div>
+
+    <!-- VERIFIKASI KODE -->
+    <div id="verifyForm" class="hidden">
+      <h2>Verifikasi Kode Gmail</h2>
+      <p>Masukkan 6 digit kode yang dikirim ke Gmail Anda</p>
+      <input type="number" id="verifyCodeInput" placeholder="Masukkan kode 6 digit">
+      <button onclick="verifyCode()">Verifikasi</button>
+      <div class="link" onclick="showLogin()">Kembali ke Login</div>
+    </div>
+
+    <!-- FORGOT PASSWORD -->
+    <div id="forgotForm" class="hidden">
+      <h2>Lupa Password</h2>
+      <input type="text" id="forgotName" placeholder="Nama Lengkap" required>
+      <input type="email" id="forgotEmail" placeholder="Email" required>
+      <input type="number" id="forgotPhone" placeholder="No HP" required>
+      <button onclick="forgotPassword()">Kirim Password Baru</button>
+      <div class="link" onclick="showLogin()">Kembali ke Login</div>
+    </div>
   </div>
 
-  <!-- HEADER -->
-  <header>
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-    <h1>Nilai & Pesan Pelanggan</h1>
-  </header>
-
-  <!-- MAIN SECTION -->
-  <section class="section" id="review-section">
-    <div id="login-area">
-      <h3>Masuk dengan Gmail untuk memberi nilai & pesan</h3>
-      <div id="g_id_onload"
-           data-client_id="YOUR_GOOGLE_CLIENT_ID"
-           data-callback="onSignIn"></div>
-      <div class="g_id_signin" data-type="standard"></div>
-    </div>
-
-    <div id="user-area" style="display:none;">
-      <div class="user-info">
-        <img id="user-pic" src="" class="user-pic" alt="">
-        <span id="user-name"></span>
-      </div>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-
-      <div class="card">
-        <h3>Beri Nilai & Pesan</h3>
-        <div class="stars" id="rating-stars">
-          <span data-value="1">★</span>
-          <span data-value="2">★</span>
-          <span data-value="3">★</span>
-          <span data-value="4">★</span>
-          <span data-value="5">★</span>
-        </div>
-        <textarea id="comment" placeholder="Tulis pesan Anda..." rows="4" style="width:100%; margin-top:10px;"></textarea>
-        <button class="btn-primary" id="submit-review" style="margin-top:10px;">Kirim</button>
-      </div>
-
-      <div id="reviews"></div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 DonatSur | Copy Right By 
-      <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a>
-    </p>
-  </footer>
-
   <script>
-    function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("active");
+    // Navigasi antar form
+    function showLogin() {
+      hideAll();
+      document.getElementById("loginForm").classList.remove("hidden");
+    }
+    function showRegister() {
+      hideAll();
+      document.getElementById("registerForm").classList.remove("hidden");
+    }
+    function showForgot() {
+      hideAll();
+      document.getElementById("forgotForm").classList.remove("hidden");
+    }
+    function showVerify() {
+      hideAll();
+      document.getElementById("verifyForm").classList.remove("hidden");
+    }
+    function hideAll() {
+      document.querySelectorAll(".auth-container > div").forEach(div => div.classList.add("hidden"));
     }
 
-    let currentUser = null;
+    // Simpan kode sementara di browser
+    let generatedCode = null;
+    let regData = {};
 
-    // Simulasi login Gmail
-    function onSignIn(response) {
-      const data = decodeJwt(response.credential);
-      currentUser = data;
-      document.getElementById("login-area").style.display = "none";
-      document.getElementById("user-area").style.display = "block";
-      document.getElementById("user-name").innerText = data.name;
-      document.getElementById("user-pic").src = data.picture;
-      displayReviews();
-    }
+    // REGISTER — kirim kode 6 digit ke Gmail
+    function register() {
+      const name = document.getElementById("regName").value;
+      const email = document.getElementById("regEmail").value;
+      const phone = document.getElementById("regPhone").value;
+      const password = document.getElementById("regPassword").value;
 
-    function decodeJwt(token) {
-      const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-      return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => 
-        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-      ).join('')));
-    }
+      if (!name || !email || !phone || !password) {
+        alert("Semua kolom wajib diisi!");
+        return;
+      }
 
-    function logout() {
-      currentUser = null;
-      document.getElementById("login-area").style.display = "block";
-      document.getElementById("user-area").style.display = "none";
-    }
+      generatedCode = Math.floor(100000 + Math.random() * 900000);
+      regData = { name, email, phone, password };
 
-    // Rating logic
-    const stars = document.querySelectorAll('#rating-stars span');
-    let selectedRating = 0;
-    stars.forEach(star => {
-      star.addEventListener('click', () => {
-        selectedRating = star.dataset.value;
-        stars.forEach(s => s.classList.remove('active'));
-        star.classList.add('active');
-        let prev = star.previousElementSibling;
-        while (prev) { prev.classList.add('active'); prev = prev.previousElementSibling; }
-      });
-    });
-
-    // Simpan komentar
-    document.getElementById('submit-review').addEventListener('click', () => {
-      if (!currentUser) return alert("Silakan login dengan Gmail terlebih dahulu!");
-      const comment = document.getElementById('comment').value.trim();
-      if (!selectedRating || !comment) return alert("Isi nilai dan pesan terlebih dahulu!");
-      const { name, picture, email } = currentUser;
-
-      const review = { name, picture, email, rating: selectedRating, comment, time: new Date().toISOString() };
-      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-      reviews.push(review);
-      localStorage.setItem('reviews', JSON.stringify(reviews));
-      document.getElementById('comment').value = '';
-      selectedRating = 0;
-      stars.forEach(s => s.classList.remove('active'));
-      displayReviews();
-    });
-
-    // Tampilkan komentar
-    function displayReviews() {
-      const container = document.getElementById('reviews');
-      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-      container.innerHTML = '';
-      reviews.slice().reverse().forEach((r, index) => {
-        const el = document.createElement('div');
-        el.classList.add('comment');
-        el.innerHTML = `
-          <div class="user-info">
-            <img src="${r.picture}" class="user-pic">
-            <strong>${r.name}</strong>
-            <span style="margin-left:8px;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
-            ${currentUser && currentUser.email === r.email ? 
-              `<button class="delete-btn" onclick="deleteReview(${reviews.length - 1 - index})">Hapus</button>` : ''}
-          </div>
-          <p>${r.comment}</p>
-        `;
-        container.appendChild(el);
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        to_name: name,
+        to_email: email,
+        message: `Halo ${name}, kode verifikasi akun DonatSur kamu adalah ${generatedCode}. Berlaku 5 menit.`,
+      })
+      .then(() => {
+        alert("Kode verifikasi telah dikirim ke Gmail Anda!");
+        showVerify();
+      }, (err) => {
+        console.error("EmailJS Error:", err);
+        alert("Gagal mengirim email verifikasi.");
       });
     }
 
-    function deleteReview(index) {
-      if (!confirm("Apakah Anda yakin ingin menghapus komentar ini?")) return;
-      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-      reviews.splice(index, 1);
-      localStorage.setItem('reviews', JSON.stringify(reviews));
-      displayReviews();
+    // VERIFIKASI
+    function verifyCode() {
+      const inputCode = document.getElementById("verifyCodeInput").value;
+      if (inputCode == generatedCode) {
+        alert(`Selamat ${regData.name}, akun Anda telah berhasil dibuat!`);
+        localStorage.setItem("user_" + regData.email, JSON.stringify(regData));
+        showLogin();
+      } else {
+        alert("Kode verifikasi salah!");
+      }
     }
 
-    displayReviews();
+    // LOGIN
+    function login() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      const userData = localStorage.getItem("user_" + email);
+
+      if (!userData) {
+        alert("Akun tidak ditemukan!");
+        return;
+      }
+
+      const parsed = JSON.parse(userData);
+      if (parsed.password === password) {
+        alert(`Selamat datang kembali, ${parsed.name}!`);
+      } else {
+        alert("Password salah!");
+      }
+    }
+
+    // LUPA PASSWORD
+    function forgotPassword() {
+      const name = document.getElementById("forgotName").value;
+      const email = document.getElementById("forgotEmail").value;
+      const newPass = "donat" + Math.floor(Math.random() * 9999);
+
+      const stored = localStorage.getItem("user_" + email);
+      if (!stored) {
+        alert("Email tidak terdaftar!");
+        return;
+      }
+
+      let parsed = JSON.parse(stored);
+      parsed.password = newPass;
+      localStorage.setItem("user_" + email, JSON.stringify(parsed));
+
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID_RESET", {
+        to_name: name,
+        to_email: email,
+        message: `Halo ${name}, password baru Anda adalah ${newPass}. Silakan login dan ubah kembali.`,
+      })
+      .then(() => {
+        alert("Password baru telah dikirim ke Gmail Anda!");
+        showLogin();
+      }, (err) => {
+        console.error("EmailJS Error:", err);
+        alert("Gagal mengirim password baru.");
+      });
+    }
   </script>
 </body>
 </html>
