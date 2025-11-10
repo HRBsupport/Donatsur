@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DonatSur - Home</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- SIDEBAR -->
@@ -26,56 +26,46 @@
     <h1>Selamat Datang di DonatSur</h1>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero fade-in">
-    <h2>Donat Premium Rasa Surgawi</h2>
-    <p>Kenikmatan donat lembut dengan cita rasa autentik, dibuat dari bahan pilihan terbaik.</p>
-    <a href="menu.html" class="btn">Lihat Menu</a>
-  </section>
-
-  <!-- FAVORITE SECTION -->
+  <!-- SECTION -->
   <section class="section">
-    <h2 class="fade-in">Donat Favorit Kami</h2>
+    <h2>Rasakan Kenikmatan Donat Premium 🍩</h2>
+    <p>
+      DonatSur menghadirkan donat dengan cita rasa lembut dan topping mewah yang dibuat dari bahan pilihan terbaik.
+      Kami menghadirkan berbagai varian donat yang cocok untuk segala suasana — dari rasa klasik hingga kreasi modern.
+    </p>
+
     <div class="favorites">
-      <div class="card fade-in">
-        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat" />
-        <h3>Donat Coklat</h3>
-        <p>Manis, lembut, dan dilapisi coklat premium Belgia.</p>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat Premium">
+        <h3>Donat Coklat Premium</h3>
+        <p>Lelehan coklat Belgia di atas adonan lembut buatan tangan kami.</p>
       </div>
-      <div class="card fade-in">
-        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi" />
-        <h3>Donat Stroberi</h3>
-        <p>Segarnya buah stroberi alami di setiap gigitan.</p>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi Glaze">
+        <h3>Donat Stroberi Glaze</h3>
+        <p>Segarnya stroberi asli dengan tampilan menggiurkan.</p>
       </div>
-      <div class="card fade-in">
-        <img src="https://images.unsplash.com/photo-1590080875837-45c8e3c65d5d" alt="Donat Keju" />
-        <h3>Donat Keju</h3>
-        <p>Taburan keju melimpah yang memanjakan lidah.</p>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1617196034796-73dfa9e0bcb5" alt="Donat Matcha Cream">
+        <h3>Donat Matcha Cream</h3>
+        <p>Matcha Jepang yang harum dengan rasa manis seimbang.</p>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
+    <p>© 2025 DonatSur | Copy Right By 
+      <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a>
+    </p>
   </footer>
 
-  <!-- SCRIPT -->
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
     }
-
-    // Efek Fade-in saat di-scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.2 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
