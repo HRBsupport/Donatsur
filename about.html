@@ -5,6 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tentang Kami - DonatSur</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Pastikan konten tetap di dalam layar */
+    body, html {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .section {
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .favorites {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .favorites .card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 320px;
+      max-width: 90vw;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .favorites .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .favorites img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .favorites h3 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .favorites p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .favorites {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .favorites .card {
+        width: 95%;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- SIDEBAR -->
