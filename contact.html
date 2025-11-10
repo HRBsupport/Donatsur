@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kontak - DonatSur</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak Kami - DonatSur</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- SIDEBAR -->
   <div id="sidebar" class="sidebar">
     <button class="close-btn" onclick="toggleSidebar()">×</button>
     <h2>🍩 DonatSur</h2>
@@ -19,46 +20,44 @@
     </nav>
   </div>
 
+  <!-- HEADER -->
   <header>
     <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     <h1>Hubungi Kami</h1>
   </header>
 
-  <main class="section">
-    <form id="contactForm" class="contact-form">
-      <input type="text" id="nama" placeholder="Nama Anda" required />
-      <input type="email" id="email" placeholder="Email Anda" required />
-      <textarea id="pesan" rows="5" placeholder="Pesan Anda..." required></textarea>
-      <button type="submit" class="btn">Kirim Pesan</button>
-    </form>
-  </main>
+  <!-- SECTION -->
+  <section class="section">
+    <h2>Butuh Bantuan? 💬</h2>
+    <p>
+      Kami siap mendengar pesan, saran, atau pertanyaan Anda.  
+      Silakan isi form di bawah, dan kami akan segera merespons Anda melalui email.
+    </p>
 
+    <form action="mailto:donatsur.official@gmail.com" method="post" enctype="text/plain">
+      <input type="text" name="nama" placeholder="Nama Lengkap" required>
+      <input type="email" name="email" placeholder="Alamat Email" required>
+      <textarea name="pesan" rows="4" placeholder="Tulis pesan Anda di sini..." required></textarea>
+      <button type="submit">Kirim Pesan 📩</button>
+    </form>
+
+    <p>Atau hubungi kami langsung melalui:</p>
+    <p><strong>📍 Alamat:</strong> Jl. Madu No. 45, Surabaya</p>
+    <p><strong>📞 Telepon:</strong> +62 812 3456 7890</p>
+    <p><strong>✉️ Email:</strong> donatsur.official@gmail.com</p>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
+    <p>© 2025 DonatSur | Copy Right By 
+      <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a>
+    </p>
   </footer>
 
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
     }
-
-    // Mailto otomatis saat submit
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const nama = document.getElementById("nama").value;
-      const email = document.getElementById("email").value;
-      const pesan = document.getElementById("pesan").value;
-
-      const subject = encodeURIComponent("Pesan dari " + nama);
-      const body = encodeURIComponent(
-        `Nama: ${nama}\nEmail: ${email}\n\nPesan:\n${pesan}`
-      );
-
-      // Ganti dengan email tujuan kamu
-      const tujuan = "donatsur@gmail.com";
-      const mailtoLink = `mailto:${tujuan}?subject=${subject}&body=${body}`;
-      window.location.href = mailtoLink;
-    });
   </script>
 </body>
 </html>
