@@ -1,149 +1,104 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menu Donat - DonatSur</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - DonatSur</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-white text-gray-800">
-  <!-- Navbar -->
-  <header class="bg-yellow-50 shadow-lg fixed w-full z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <h1 class="text-3xl font-extrabold text-yellow-600">🍩 DonatSur</h1>
-      <nav class="space-x-6">
-        <a href="index.html" class="hover:text-yellow-500">Home</a>
-        <a href="about.html" class="hover:text-yellow-500">About</a>
-        <a href="menu.html" class="hover:text-yellow-500">Menu</a>
-        <a href="gallery.html" class="hover:text-yellow-500">Gallery</a>
-        <a href="contact.html" class="hover:text-yellow-500">Contact</a>
-      </nav>
-    </div>
+<body>
+  <header>
+    <h1>🍩 DonatSur</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <section class="pt-24 p-8 max-w-6xl mx-auto">
-    <h2 class="text-4xl font-bold text-yellow-600 text-center mb-10">Menu Donat Kami</h2>
-    <div id="menu" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Item 1 -->
-      <div class="bg-yellow-50 rounded-2xl shadow-lg overflow-hidden text-center p-4">
-        <img src="https://images.unsplash.com/photo-1565958011705-44e211fcd1a1" class="w-full h-48 object-cover" alt="Donat Coklat">
-        <h3 class="font-semibold text-xl text-yellow-700 mt-3">Donat Coklat Premium</h3>
-        <p class="text-gray-600">Rp15.000</p>
-        <div class="flex justify-center items-center mt-3 space-x-3">
-          <button onclick="kurang(0)" class="bg-yellow-500 text-white px-3 py-1 rounded-full">-</button>
-          <span id="qty0">0</span>
-          <button onclick="tambah(0)" class="bg-yellow-500 text-white px-3 py-1 rounded-full">+</button>
+  <section class="content">
+    <h2>Menu Donat Kami</h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat">
+        <h3>Donat Coklat</h3>
+        <p>Rp 10.000</p>
+        <div class="controls">
+          <button onclick="ubahJumlah(0, -1)">−</button>
+          <span id="jumlah0">0</span>
+          <button onclick="ubahJumlah(0, 1)">+</button>
         </div>
       </div>
 
-      <!-- Item 2 -->
-      <div class="bg-yellow-50 rounded-2xl shadow-lg overflow-hidden text-center p-4">
-        <img src="https://images.unsplash.com/photo-1583182332535-3f8e6d6a8b91" class="w-full h-48 object-cover" alt="Donat Stroberi">
-        <h3 class="font-semibold text-xl text-yellow-700 mt-3">Donat Stroberi</h3>
-        <p class="text-gray-600">Rp13.000</p>
-        <div class="flex justify-center items-center mt-3 space-x-3">
-          <button onclick="kurang(1)" class="bg-yellow-500 text-white px-3 py-1 rounded-full">-</button>
-          <span id="qty1">0</span>
-          <button onclick="tambah(1)" class="bg-yellow-500 text-white px-3 py-1 rounded-full">+</button>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi">
+        <h3>Donat Stroberi</h3>
+        <p>Rp 12.000</p>
+        <div class="controls">
+          <button onclick="ubahJumlah(1, -1)">−</button>
+          <span id="jumlah1">0</span>
+          <button onclick="ubahJumlah(1, 1)">+</button>
         </div>
       </div>
 
-      <!-- Item 3 -->
-      <div class="bg-yellow-50 rounded-2xl shadow-lg overflow-hidden text-center p-4">
-        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" class="w-full h-48 object-cover" alt="Donat Vanila">
-        <h3 class="font-semibold text-xl text-yellow-700 mt-3">Donat Vanila</h3>
-        <p class="text-gray-600">Rp12.000</p>
-        <div class="flex justify-center items-center mt-3 space-x-3">
-          <button onclick="kurang(2)" class="bg-yellow-500 text-white px-3 py-1 rounded-full">-</button>
-          <span id="qty2">0</span>
-          <button onclick="tambah(2)" class="bg-yellow-500 text-white px-3 py-1 rounded-full">+</button>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1590080875837-45c8e3c65d5d" alt="Donat Keju">
+        <h3>Donat Keju</h3>
+        <p>Rp 15.000</p>
+        <div class="controls">
+          <button onclick="ubahJumlah(2, -1)">−</button>
+          <span id="jumlah2">0</span>
+          <button onclick="ubahJumlah(2, 1)">+</button>
         </div>
       </div>
     </div>
 
-    <!-- Total & Pembayaran -->
-    <div class="mt-12 bg-yellow-100 rounded-2xl p-6 shadow-lg">
-      <h3 class="text-2xl font-bold text-yellow-700 mb-4 text-center">Total Pembelian</h3>
-      <p id="totalHarga" class="text-center text-3xl font-bold text-gray-800">Rp0</p>
+    <h3 class="total">Total: Rp <span id="totalHarga">0</span></h3>
 
-      <form id="formPembayaran" class="mt-8 max-w-md mx-auto bg-white rounded-xl shadow p-6 space-y-4">
-        <h4 class="text-xl font-semibold text-yellow-700 text-center">Form Pembayaran</h4>
-        <input type="text" id="nama" placeholder="Nama Lengkap" required class="w-full border p-2 rounded" />
-        <input type="text" id="alamat" placeholder="Alamat Pengiriman" required class="w-full border p-2 rounded" />
-        <select id="metode" class="w-full border p-2 rounded" required>
-          <option value="">Pilih Metode Pembayaran</option>
-          <option>Transfer Bank</option>
-          <option>COD (Bayar di Tempat)</option>
-          <option>QRIS</option>
-        </select>
-
-        <!-- Upload Bukti Pembayaran -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Upload Bukti Pembayaran</label>
-          <input type="file" id="bukti" accept="image/*" required class="w-full border p-2 rounded bg-yellow-50" />
-          <p class="text-xs text-gray-500 mt-1">Format yang diterima: .jpg, .jpeg, .png</p>
-        </div>
-
-        <button type="submit" class="w-full bg-yellow-500 text-white font-bold py-2 rounded hover:bg-yellow-600 transition">
-          Kirim Pesanan
-        </button>
-      </form>
-
-      <!-- Preview Bukti -->
-      <div id="preview" class="mt-6 text-center hidden">
-        <h4 class="text-lg font-semibold text-yellow-700 mb-2">📸 Bukti Pembayaran:</h4>
-        <img id="buktiImg" src="" alt="Bukti Pembayaran" class="mx-auto rounded-xl shadow-md max-h-64" />
-        <p id="buktiNama" class="mt-2 text-sm text-gray-600"></p>
-      </div>
-    </div>
+    <h2 class="mt">Form Pembayaran</h2>
+    <form id="formPembayaran">
+      <input type="text" id="nama" placeholder="Nama Pemesan" required>
+      <select id="metodePembayaran" required>
+        <option value="">Pilih Metode Pembayaran</option>
+        <option>Transfer Bank</option>
+        <option>Dana</option>
+        <option>OVO</option>
+        <option>Gopay</option>
+        <option>COD</option>
+      </select>
+      <label>Upload Bukti Pembayaran:</label>
+      <input type="file" id="buktiPembayaran" accept="image/*" required>
+      <button type="submit" class="btn">Kirim Pembayaran</button>
+    </form>
   </section>
 
-  <footer class="bg-yellow-50 text-center py-4 border-t mt-8">
-    <p class="text-sm text-gray-600">© 2025 DonatSur. Semua hak dilindungi.</p>
+  <footer>
+    <p>© 2025 DonatSur.</p>
   </footer>
 
   <script>
-    const harga = [15000, 13000, 12000];
-    const qty = [0, 0, 0];
+    const harga = [10000, 12000, 15000];
+    const jumlah = [0, 0, 0];
 
-    function updateTotal() {
+    function ubahJumlah(index, delta) {
+      jumlah[index] = Math.max(0, jumlah[index] + delta);
+      document.getElementById("jumlah" + index).textContent = jumlah[index];
+      hitungTotal();
+    }
+
+    function hitungTotal() {
       let total = 0;
-      for (let i = 0; i < harga.length; i++) total += harga[i] * qty[i];
-      document.getElementById("totalHarga").textContent = "Rp" + total.toLocaleString("id-ID");
-    }
-
-    function tambah(i) {
-      qty[i]++;
-      document.getElementById("qty" + i).textContent = qty[i];
-      updateTotal();
-    }
-
-    function kurang(i) {
-      if (qty[i] > 0) qty[i]--;
-      document.getElementById("qty" + i).textContent = qty[i];
-      updateTotal();
-    }
-
-    // Tampilkan preview bukti pembayaran
-    document.getElementById("bukti").addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-          document.getElementById("preview").classList.remove("hidden");
-          document.getElementById("buktiImg").src = evt.target.result;
-          document.getElementById("buktiNama").textContent = file.name;
-        };
-        reader.readAsDataURL(file);
+      for (let i = 0; i < harga.length; i++) {
+        total += harga[i] * jumlah[i];
       }
-    });
+      document.getElementById("totalHarga").textContent = total.toLocaleString("id-ID");
+    }
 
     document.getElementById("formPembayaran").addEventListener("submit", (e) => {
       e.preventDefault();
-      const nama = document.getElementById("nama").value;
-      const alamat = document.getElementById("alamat").value;
-      const metode = document.getElementById("metode").value;
-      alert(`Pesanan atas nama ${nama} berhasil dikirim!\nAlamat: ${alamat}\nMetode: ${metode}\nTerima kasih telah berbelanja di DonatSur 🍩`);
+      alert("Terima kasih, pesanan Anda sedang diproses!");
     });
   </script>
 </body>
