@@ -34,7 +34,6 @@
     }
 
     input[type="text"],
-    input[type="email"],
     textarea,
     select {
       width: 100%;
@@ -99,6 +98,31 @@
     .login-btn:hover {
       background: #3367d6;
     }
+
+    /* Komentar */
+    .comments-section {
+      margin-top: 30px;
+      border-top: 2px solid #f3c623;
+      padding-top: 20px;
+    }
+
+    .comment-item {
+      background: #fdfdfd;
+      border: 1px solid #eee;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .comment-item strong {
+      color: #f3c623;
+    }
+
+    .rating {
+      color: #ffb400;
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
@@ -151,6 +175,11 @@
 
       <button type="submit" class="btn-submit">Kirim</button>
     </form>
+
+    <div class="comments-section" id="commentsSection">
+      <h3>Komentar Pengunjung 🍩</h3>
+      <div id="commentsList"></div>
+    </div>
   </section>
 
   <!-- FOOTER -->
@@ -166,7 +195,6 @@
     }
 
     function login() {
-      // simulasi login Gmail
       const email = prompt("Masukkan Gmail Anda:");
       if (email && email.includes("@gmail.com")) {
         localStorage.setItem("userEmail", email);
@@ -184,6 +212,7 @@
       location.reload();
     }
 
+    // Saat halaman dibuka
     window.onload = () => {
       if (localStorage.getItem("userEmail")) {
         document.getElementById("loginSection").style.display = "none";
@@ -191,16 +220,43 @@
         document.getElementById("logoutContainer").innerHTML =
           '<button class="logout-btn" onclick="logout()">Logout</button>';
       }
+      loadComments();
     };
 
+    // Simpan komentar ke localStorage
     document.getElementById("commentForm").addEventListener("submit", e => {
       e.preventDefault();
-      const name = document.getElementById("name").value;
-      const rating = document.getElementById("rating").value;
-      const comment = document.getElementById("comment").value;
-      alert(`Terima kasih, ${name}! Nilai Anda: ${rating}\nKomentar: ${comment}`);
-      e.target.reset();
+      const name = document.getElementById("name").value.trim();
+      const rating = document.getElementById("rating").value.trim();
+      const comment = document.getElementById("comment").value.trim();
+
+      if (name && rating && comment) {
+        const comments = JSON.parse(localStorage.getItem("comments") || "[]");
+        comments.push({ name, rating, comment });
+        localStorage.setItem("comments", JSON.stringify(comments));
+        displayComment(name, rating, comment);
+        e.target.reset();
+        alert("Komentar berhasil dikirim!");
+      }
     });
+
+    // Tampilkan komentar di halaman
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem("comments") || "[]");
+      comments.forEach(c => displayComment(c.name, c.rating, c.comment));
+    }
+
+    function displayComment(name, rating, comment) {
+      const list = document.getElementById("commentsList");
+      const div = document.createElement("div");
+      div.classList.add("comment-item");
+      div.innerHTML = `
+        <strong>${name}</strong> 
+        <div class="rating">⭐ ${rating}</div>
+        <p>${comment}</p>
+      `;
+      list.prepend(div);
+    }
   </script>
 </body>
 </html>
