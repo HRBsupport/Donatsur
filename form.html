@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Komentar - DonatSur</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #faf9f7;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #f3c623;
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 12px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    .btn-submit {
+      background: #f3c623;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: #e2b71f;
+    }
+
+    .logout-btn {
+      background: #ff5252;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #e04848;
+    }
+
+    .login-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-btn {
+      background: #4285F4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .login-btn:hover {
+      background: #3367d6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div id="sidebar" class="sidebar">
+    <button class="close-btn" onclick="toggleSidebar()">×</button>
+    <h2>🍩 DonatSur</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="menu.html">Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="form.html" class="active">Feedback</a>
+    </nav>
+    <div id="logoutContainer"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h1>Form Komentar</h1>
+  </header>
+
+  <!-- FORM -->
+  <section class="form-container">
+    <div class="login-section" id="loginSection">
+      <p>Silakan login dengan Gmail Anda untuk memberikan komentar.</p>
+      <button class="login-btn" onclick="login()">Login dengan Gmail</button>
+    </div>
+
+    <form id="commentForm" style="display:none;">
+      <h2>Bagikan Pendapatmu 🍩</h2>
+      <label for="name">Nama</label>
+      <input type="text" id="name" placeholder="Masukkan nama Anda" required>
+
+      <label for="rating">Nilai (1 - 5)</label>
+      <select id="rating" required>
+        <option value="">Pilih...</option>
+        <option>1 - Kurang</option>
+        <option>2 - Cukup</option>
+        <option>3 - Lumayan</option>
+        <option>4 - Enak</option>
+        <option>5 - Sangat Enak</option>
+      </select>
+
+      <label for="comment">Komentar</label>
+      <textarea id="comment" placeholder="Tulis komentar Anda..." required></textarea>
+
+      <button type="submit" class="btn-submit">Kirim</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 DonatSur | Copy Right By 
+      <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    function login() {
+      // simulasi login Gmail
+      const email = prompt("Masukkan Gmail Anda:");
+      if (email && email.includes("@gmail.com")) {
+        localStorage.setItem("userEmail", email);
+        document.getElementById("loginSection").style.display = "none";
+        document.getElementById("commentForm").style.display = "block";
+        document.getElementById("logoutContainer").innerHTML =
+          '<button class="logout-btn" onclick="logout()">Logout</button>';
+      } else {
+        alert("Harap gunakan alamat Gmail yang valid.");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("userEmail");
+      location.reload();
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem("userEmail")) {
+        document.getElementById("loginSection").style.display = "none";
+        document.getElementById("commentForm").style.display = "block";
+        document.getElementById("logoutContainer").innerHTML =
+          '<button class="logout-btn" onclick="logout()">Logout</button>';
+      }
+    };
+
+    document.getElementById("commentForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const rating = document.getElementById("rating").value;
+      const comment = document.getElementById("comment").value;
+      alert(`Terima kasih, ${name}! Nilai Anda: ${rating}\nKomentar: ${comment}`);
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
