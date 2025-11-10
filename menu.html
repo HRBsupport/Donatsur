@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Menu - DonatSur</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>🍩 DonatSur</h1>
+  <div id="sidebar" class="sidebar">
+    <button class="close-btn" onclick="toggleSidebar()">×</button>
+    <h2>🍩 DonatSur</h2>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -16,13 +17,18 @@
       <a href="gallery.html">Gallery</a>
       <a href="contact.html">Contact</a>
     </nav>
+  </div>
+
+  <header>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h1>Menu DonatSur</h1>
   </header>
 
-  <section class="content">
+  <main class="section">
     <h2>Menu Donat Kami</h2>
     <div class="menu-grid">
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat" />
         <h3>Donat Coklat</h3>
         <p>Rp 10.000</p>
         <div class="controls">
@@ -33,7 +39,7 @@
       </div>
 
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi">
+        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi" />
         <h3>Donat Stroberi</h3>
         <p>Rp 12.000</p>
         <div class="controls">
@@ -44,7 +50,7 @@
       </div>
 
       <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1590080875837-45c8e3c65d5d" alt="Donat Keju">
+        <img src="https://images.unsplash.com/photo-1590080875837-45c8e3c65d5d" alt="Donat Keju" />
         <h3>Donat Keju</h3>
         <p>Rp 15.000</p>
         <div class="controls">
@@ -55,30 +61,42 @@
       </div>
     </div>
 
-    <h3 class="total">Total: Rp <span id="totalHarga">0</span></h3>
+    <div class="total-box">
+      <h3>Total: Rp <span id="totalHarga">0</span></h3>
+    </div>
 
-    <h2 class="mt">Form Pembayaran</h2>
-    <form id="formPembayaran">
-      <input type="text" id="nama" placeholder="Nama Pemesan" required>
-      <select id="metodePembayaran" required>
-        <option value="">Pilih Metode Pembayaran</option>
-        <option>Transfer Bank</option>
-        <option>Dana</option>
-        <option>OVO</option>
-        <option>Gopay</option>
-        <option>COD</option>
-      </select>
-      <label>Upload Bukti Pembayaran:</label>
-      <input type="file" id="buktiPembayaran" accept="image/*" required>
-      <button type="submit" class="btn">Kirim Pembayaran</button>
-    </form>
-  </section>
+    <div class="payment-section">
+      <h2>Form Pemesanan</h2>
+      <form id="formPembayaran">
+        <div class="form-group">
+          <label for="nama">Nama Pemesan:</label>
+          <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+        </div>
+        <div class="form-group">
+          <label for="metode">Metode Pembayaran:</label>
+          <select id="metode" required>
+            <option value="">Pilih Metode</option>
+            <option value="Transfer Bank">Transfer Bank</option>
+            <option value="Dana">Dana</option>
+            <option value="OVO">OVO</option>
+            <option value="Gopay">Gopay</option>
+            <option value="COD">COD</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Kirim via WhatsApp</button>
+      </form>
+    </div>
+  </main>
 
   <footer>
-    <p>© 2025 DonatSur.</p>
+    <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
   </footer>
 
   <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
     const harga = [10000, 12000, 15000];
     const jumlah = [0, 0, 0];
 
@@ -90,15 +108,19 @@
 
     function hitungTotal() {
       let total = 0;
-      for (let i = 0; i < harga.length; i++) {
-        total += harga[i] * jumlah[i];
-      }
+      for (let i = 0; i < harga.length; i++) total += harga[i] * jumlah[i];
       document.getElementById("totalHarga").textContent = total.toLocaleString("id-ID");
     }
 
-    document.getElementById("formPembayaran").addEventListener("submit", (e) => {
+    document.getElementById("formPembayaran").addEventListener("submit", function(e) {
       e.preventDefault();
-      alert("Terima kasih, pesanan Anda sedang diproses!");
+      const nama = document.getElementById("nama").value;
+      const metode = document.getElementById("metode").value;
+      const total = document.getElementById("totalHarga").textContent;
+      const wa = "https://wa.me/6281234567890?text=" + encodeURIComponent(
+        `Halo DonatSur! Saya ${nama} ingin memesan donat.\n\nTotal Pesanan: Rp ${total}\nMetode Pembayaran: ${metode}`
+      );
+      window.open(wa, "_blank");
     });
   </script>
 </body>
