@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu - DonatSur</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- SIDEBAR -->
@@ -28,102 +28,129 @@
 
   <!-- MAIN SECTION -->
   <main class="section">
-    <h2>Pesan Donat Favoritmu</h2>
-    <p>Pilih varian donat dan jumlah pesananmu, lalu kirim lewat WhatsApp untuk konfirmasi.</p>
+    <h2>Pilih Donat Favoritmu 🍩</h2>
+    <p>Tambah atau kurangi jumlah donat yang ingin kamu beli, lalu isi form di bawah.</p>
 
-    <form id="orderForm" onsubmit="sendWhatsApp(event)">
-      <div class="menu-item">
-        <label>Donat Coklat</label>
+    <div class="favorites">
+      <div class="card menu-item">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" alt="Donat Coklat">
+        <h3>Donat Coklat</h3>
+        <p>Harga: Rp 10.000</p>
         <div class="quantity-control">
-          <button type="button" onclick="changeQty('coklat', -1)">-</button>
-          <input type="number" id="coklatQty" value="0" min="0" readonly />
-          <button type="button" onclick="changeQty('coklat', 1)">+</button>
+          <button onclick="updateQty('coklat', -1)">–</button>
+          <input id="qty-coklat" type="number" value="0" min="0" readonly>
+          <button onclick="updateQty('coklat', 1)">+</button>
         </div>
-        <p>Harga: Rp <span id="coklatPrice">0</span></p>
       </div>
 
-      <div class="menu-item">
-        <label>Donat Stroberi</label>
+      <div class="card menu-item">
+        <img src="https://images.unsplash.com/photo-1607082349566-187342b92847" alt="Donat Stroberi">
+        <h3>Donat Stroberi</h3>
+        <p>Harga: Rp 12.000</p>
         <div class="quantity-control">
-          <button type="button" onclick="changeQty('stroberi', -1)">-</button>
-          <input type="number" id="stroberiQty" value="0" min="0" readonly />
-          <button type="button" onclick="changeQty('stroberi', 1)">+</button>
+          <button onclick="updateQty('stroberi', -1)">–</button>
+          <input id="qty-stroberi" type="number" value="0" min="0" readonly>
+          <button onclick="updateQty('stroberi', 1)">+</button>
         </div>
-        <p>Harga: Rp <span id="stroberiPrice">0</span></p>
       </div>
 
-      <div class="menu-item">
-        <label>Donat Keju</label>
+      <div class="card menu-item">
+        <img src="https://images.unsplash.com/photo-1617196034796-73dfa9e0bcb5" alt="Donat Matcha">
+        <h3>Donat Matcha</h3>
+        <p>Harga: Rp 15.000</p>
         <div class="quantity-control">
-          <button type="button" onclick="changeQty('keju', -1)">-</button>
-          <input type="number" id="kejuQty" value="0" min="0" readonly />
-          <button type="button" onclick="changeQty('keju', 1)">+</button>
+          <button onclick="updateQty('matcha', -1)">–</button>
+          <input id="qty-matcha" type="number" value="0" min="0" readonly>
+          <button onclick="updateQty('matcha', 1)">+</button>
         </div>
-        <p>Harga: Rp <span id="kejuPrice">0</span></p>
       </div>
+    </div>
 
-      <h3>Total Harga: Rp <span id="totalPrice">0</span></h3>
+    <!-- FORM PEMBELIAN -->
+    <section class="section">
+      <h2>Form Pembelian</h2>
+      <form id="orderForm" onsubmit="sendOrder(event)">
+        <input type="text" id="nama" placeholder="Nama Lengkap" required>
+        <input type="text" id="alamat" placeholder="Alamat Rumah" required>
+        <textarea id="catatan" rows="3" placeholder="Catatan Tambahan (optional)"></textarea>
 
-      <label for="name">Nama Lengkap</label>
-      <input type="text" id="name" placeholder="Nama kamu" required />
+        <!-- TOTAL HARGA -->
+        <div class="total-display">
+          <h3>Total: <span id="totalHarga">Rp 0</span></h3>
+        </div>
 
-      <label for="address">Alamat Lengkap</label>
-      <textarea id="address" placeholder="Tulis alamat lengkap untuk pengiriman" required></textarea>
-
-      <label for="note">Catatan Tambahan</label>
-      <textarea id="note" placeholder="(Opsional) contoh: tanpa topping, kirim siang"></textarea>
-
-      <button type="submit">Kirim Pesanan via WhatsApp</button>
-    </form>
+        <button type="submit">Kirim Pesanan via WhatsApp</button>
+      </form>
+    </section>
   </main>
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
+    <p>© 2025 DonatSur | Copy Right By 
+      <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a>
+    </p>
   </footer>
 
   <!-- SCRIPT -->
   <script>
-    const prices = {
-      coklat: 8000,
-      stroberi: 9000,
-      keju: 8500
+    const harga = {
+      coklat: 10000,
+      stroberi: 12000,
+      matcha: 15000
     };
 
-    function changeQty(item, amount) {
-      const qtyInput = document.getElementById(item + "Qty");
-      let qty = parseInt(qtyInput.value) + amount;
-      if (qty < 0) qty = 0;
-      qtyInput.value = qty;
-      updatePrices();
+    function updateQty(item, change) {
+      const input = document.getElementById(`qty-${item}`);
+      let val = parseInt(input.value) + change;
+      if (val < 0) val = 0;
+      input.value = val;
+      updateTotal();
     }
 
-    function updatePrices() {
+    function updateTotal() {
+      const qtyCoklat = parseInt(document.getElementById('qty-coklat').value);
+      const qtyStroberi = parseInt(document.getElementById('qty-stroberi').value);
+      const qtyMatcha = parseInt(document.getElementById('qty-matcha').value);
+
+      let total = qtyCoklat * harga.coklat + qtyStroberi * harga.stroberi + qtyMatcha * harga.matcha;
+      document.getElementById('totalHarga').textContent = 'Rp ' + total.toLocaleString('id-ID');
+    }
+
+    function sendOrder(event) {
+      event.preventDefault();
+
+      const nama = document.getElementById('nama').value.trim();
+      const alamat = document.getElementById('alamat').value.trim();
+      const catatan = document.getElementById('catatan').value.trim();
+
+      const qtyCoklat = parseInt(document.getElementById('qty-coklat').value);
+      const qtyStroberi = parseInt(document.getElementById('qty-stroberi').value);
+      const qtyMatcha = parseInt(document.getElementById('qty-matcha').value);
+
+      let pesan = `🍩 *Pesanan DonatSur*%0A`;
+      pesan += `Nama: ${nama}%0AAlamat: ${alamat}%0A%0A`;
+      pesan += `Pesanan:%0A`;
+
       let total = 0;
-      for (let key in prices) {
-        const qty = parseInt(document.getElementById(key + "Qty").value);
-        const itemTotal = qty * prices[key];
-        document.getElementById(key + "Price").innerText = itemTotal.toLocaleString();
-        total += itemTotal;
+      if (qtyCoklat > 0) {
+        pesan += `- Donat Coklat (${qtyCoklat} x Rp10.000)%0A`;
+        total += qtyCoklat * harga.coklat;
       }
-      document.getElementById("totalPrice").innerText = total.toLocaleString();
-    }
+      if (qtyStroberi > 0) {
+        pesan += `- Donat Stroberi (${qtyStroberi} x Rp12.000)%0A`;
+        total += qtyStroberi * harga.stroberi;
+      }
+      if (qtyMatcha > 0) {
+        pesan += `- Donat Matcha (${qtyMatcha} x Rp15.000)%0A`;
+        total += qtyMatcha * harga.matcha;
+      }
 
-    function sendWhatsApp(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const address = document.getElementById("address").value;
-      const note = document.getElementById("note").value;
+      pesan += `%0ATotal: Rp${total.toLocaleString('id-ID')}`;
+      if (catatan) pesan += `%0A%0ACatatan: ${catatan}`;
+      pesan += `%0A%0ATerima kasih telah memesan di DonatSur ❤️`;
 
-      const coklat = document.getElementById("coklatQty").value;
-      const stroberi = document.getElementById("stroberiQty").value;
-      const keju = document.getElementById("kejuQty").value;
-      const total = document.getElementById("totalPrice").innerText;
-
-      const message = `Halo DonatSur! Saya ingin memesan:\n\n🍩 Donat Coklat: ${coklat}\n🍓 Donat Stroberi: ${stroberi}\n🧀 Donat Keju: ${keju}\n\n💰 Total: Rp ${total}\n👤 Nama: ${name}\n🏠 Alamat: ${address}\n📝 Catatan: ${note || '-'}\n\nTerima kasih!`;
-
-      const phone = "6281234567890"; // Ganti nomor WA di sini
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      const noWA = "6281234567890"; // Ganti dengan nomor WA kamu
+      const url = `https://wa.me/${noWA}?text=${pesan}`;
       window.open(url, "_blank");
     }
 
