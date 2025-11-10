@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tentang Kami - DonatSur</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- SIDEBAR -->
   <div id="sidebar" class="sidebar">
     <button class="close-btn" onclick="toggleSidebar()">×</button>
     <h2>🍩 DonatSur</h2>
@@ -19,25 +20,48 @@
     </nav>
   </div>
 
+  <!-- HEADER -->
   <header>
     <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-    <h1>Tentang Kami</h1>
+    <h1>Tentang DonatSur</h1>
   </header>
 
-  <main class="section">
-    <h2>Kenali DonatSur Lebih Dekat</h2>
+  <!-- SECTION -->
+  <section class="section">
+    <h2>Cerita Kami 🍩</h2>
     <p>
-      DonatSur berdiri sejak 2020 dengan visi menghadirkan donat terbaik di Indonesia.  
-      Kami menggunakan bahan-bahan pilihan dan resep eksklusif untuk menciptakan cita rasa yang lembut, lezat, dan elegan.
+      DonatSur berdiri dengan semangat menghadirkan kenikmatan donat premium buatan lokal.  
+      Kami percaya bahwa setiap gigitan donat adalah bentuk kebahagiaan yang sederhana,  
+      dan kami berkomitmen untuk menyajikan donat yang bukan hanya lezat,  
+      tapi juga dibuat dari bahan berkualitas tinggi tanpa bahan pengawet.
     </p>
-    <p>
-      Kami percaya bahwa setiap gigitan donat bisa membawa kebahagiaan.  
-      Karena itu, kami berkomitmen memberikan kualitas terbaik untuk setiap pelanggan.
-    </p>
-  </main>
 
+    <p>
+      Berdiri sejak tahun <strong>2020</strong>, DonatSur kini berkembang menjadi brand donat  
+      yang dikenal karena kelezatan, kelembutan, dan keunikan rasanya.  
+      Setiap varian kami dibuat dengan penuh cinta oleh tim ahli roti profesional.
+    </p>
+
+    <div class="favorites">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1565958011705-44e211e4a9b7" alt="Tim DonatSur">
+        <h3>Tim DonatSur</h3>
+        <p>Tim profesional kami yang berdedikasi membuat donat terbaik untuk Anda.</p>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77" alt="Dapur Produksi">
+        <h3>Dapur Produksi</h3>
+        <p>Dapur higienis dan modern untuk menjamin kualitas rasa setiap donat.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>© 2025 DonatSur | Copy Right By <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a></p>
+    <p>© 2025 DonatSur | Copy Right By 
+      <a href="https://onedevofficial.vercel.app" target="_blank">OneDev</a>
+    </p>
   </footer>
 
   <script>
